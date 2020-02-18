@@ -1,7 +1,8 @@
 ## Load samples for 10X Chromium Cell Ranger.
 ## Updated 2020-02-02.
 
-library(Chromium)  # 0.1.3
+source("_setup.R")
+
 cellranger <- CellRanger(
     dir = file.path("data", "cellranger-2020-01"),
     filtered = TRUE,
