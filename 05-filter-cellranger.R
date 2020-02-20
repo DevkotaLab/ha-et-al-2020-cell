@@ -1,51 +1,32 @@
 source("_setup.R")
 
-loadData(surecell, dir = file.path("rds", "2020-02-02"))
-surecell_bak <- surecell
+loadData(cellranger, dir = file.path("rds", "2020-02-02"))
+cellranger_bak <- cellranger
 
-dim(surecell)
-## [1]  24600 105071
+dim(cellranger)
+## [1] 25585 11153
 
-## Using the settings from 2018 analysis.
+## Using the settings from 2018 surecell analysis.
 ## Counts :: UMIs
 min_counts <- 200
 max_counts <- Inf
 ## Features :: genes
 min_features <- 200
 max_features <- Inf
-min_novelty <- 0.85
-max_mito_ratio <- 0.1
+## Note that the gating here is lower.
+min_novelty <- 0.80
+## Gated this down a little lower, to keep more cells.
+max_mito_ratio <- 0.15
 min_cells_per_feature <- 10
 
 
 
 ## Pre-filter ==================================================================
-plotCellCounts(surecell)
-
-## Note that this takes a long time to plot.
-plotReadsPerCell(
-    object = surecell,
-    geom = "histogram",
-    interestingGroups = "sampleName"
-)
-
-## Note that this takes a long time to plot.
-plotReadsPerCell(
-    object = surecell,
-    geom = "histogram",
-    interestingGroups = "sampleName"
-) +
-    facet_wrap(vars(patientID))
-
-plotReadsPerCell(
-    object = surecell,
-    geom = "ecdf",
-    interestingGroups = "sampleName"
-)
+plotCellCounts(cellranger)
 
 plotCountsPerCell(
-    object = surecell,
-    geom = "violin",
+    object = cellranger,
+    geom = "histogram",
     min = min_counts,
     max = max_counts
 )
@@ -53,66 +34,67 @@ plotCountsPerCell(
 
 
 ## Test filtering ==============================================================
-surecell <- filterCells(
-    object = surecell,
+cellranger <- filterCells(
+    object = cellranger,
     minCounts = min_counts,
     maxCounts = max_counts
 )
-dim(surecell)
-## [1] 24162 55074
-
-plotCellCounts(surecell)
-
-plotCountsPerCell(
-    object = surecell,
-    geom = "histogram",
-    interestingGroups = "sampleName",
-    min = min_counts,
-    max = max_counts
-)
+dim(cellranger)
+## [1] 25585 11153
 
 plotFeaturesPerCell(
-    object = surecell,
-    geom = "histogram",
+    object = cellranger,
     interestingGroups = "sampleName",
+    geom = "histogram",
     min = min_features,
     max = max_features
 )
 
-surecell <- filterCells(
-    object = surecell,
+cellranger <- filterCells(
+    object = cellranger,
     minFeatures = min_features,
     maxFeatures = max_features
 )
-dim(surecell)
-## [1] 23650  8406
+dim(cellranger)
+## [1] 25575 10190
 
-plotCellCounts(surecell)
+plotCellCounts(cellranger)
 
-plotCountsVsFeatures(surecell)
+plotCountsVsFeatures(cellranger)
 
 plotNovelty(
-    object = surecell,
+    object = cellranger,
     interestingGroups = "sampleName",
+    geom = "ecdf",
+    min = min_novelty
+)
+plotNovelty(
+    object = cellranger,
     geom = "histogram",
     min = min_novelty
 )
 
 plotMitoRatio(
-    object = surecell,
+    object = cellranger,
     interestingGroups = "sampleName",
+    geom = "ecdf",
+    max = max_mito_ratio
+)
+plotMitoRatio(
+    object = cellranger,
     geom = "histogram",
     max = max_mito_ratio
 )
 
 
 
+
 ## Filter ======================================================================
-surecell <- surecell_bak
-dim(surecell)
-## [1]  24600 105071
-surecell_filtered <- filterCells(
-    object = surecell,
+cellranger <- cellranger_bak
+dim(cellranger)
+## [1] 25585 11153
+cellranger_filtered <- filterCells(
+    object = cellranger,
     minCounts = min_counts,
     maxCounts = max_counts,
     minFeatures = min_features,
@@ -121,66 +103,66 @@ surecell_filtered <- filterCells(
     maxMitoRatio = max_mito_ratio,
     minCellsPerFeature = min_cells_per_feature
 )
-dim(surecell_filtered)
-## [1] 18132  7554
-saveData(surecell_filtered)
+dim(cellranger_filtered)
+## [1] 19240  8183
+saveData(cellranger_filtered)
 
 
 
 ## Post-filter =================================================================
 ## These are the same number of cells as the original 2018 analysis.
 pdf(
-    file = file.path(results_dir, "surecell-filtered.pdf"),
+    file = file.path(results_dir, "cellranger-filtered.pdf"),
     width = 10,
     height = 10
 )
 
-plotCellCounts(surecell_filtered)
+plotCellCounts(cellranger_filtered)
 
 plotCountsPerCell(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     interestingGroups = "sampleName",
     geom = "ecdf"
 )
 plotCountsPerCell(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     interestingGroups = "sampleName",
     geom = "violin"
 )
 plotCountsPerCell(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     geom = "histogram"
 )
 
 plotFeaturesPerCell(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     interestingGroups = "sampleName",
     geom = "ecdf"
 )
 plotFeaturesPerCell(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     interestingGroups = "sampleName",
     geom = "violin"
 )
 plotFeaturesPerCell(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     geom = "histogram"
 )
 
-plotCountsVsFeatures(surecell_filtered)
+plotCountsVsFeatures(cellranger_filtered)
 
 plotNovelty(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     interestingGroups = "sampleName",
     geom = "ecdf"
 )
 plotNovelty(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     geom = "histogram"
 )
 
 plotMitoRatio(
-    object = surecell_filtered,
+    object = cellranger_filtered,
     interestingGroups = "sampleName",
     geom = "ecdf"
 )
