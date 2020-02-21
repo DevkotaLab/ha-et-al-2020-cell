@@ -1,7 +1,6 @@
 source("_setup.R")
 
 loadData(seurat_files, dir = file.path("rds", "2020-02-20"))
-
 ## Strip out the absolute URL from the file list.
 parent_dir_pattern <-
     seurat_files %>%
@@ -12,7 +11,6 @@ parent_dir_pattern <-
     ) %>%
     dirname() %>%
     paste0("^", ., "/")
-
 seurat_files %<>%
     gsub(
         pattern = parent_dir_pattern,
@@ -20,6 +18,7 @@ seurat_files %<>%
         x = .
     ) %>%
     realpath()
+saveData(seurat_files)
 
 rds_dir <- initDir(file.path("rds", Sys.Date(), "seurat-clustering"))
 
