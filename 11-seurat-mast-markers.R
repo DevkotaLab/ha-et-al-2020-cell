@@ -2,10 +2,9 @@ source("_setup.R")
 
 # Using MAST method to find the markers, rather than Wilcoxon.
 library(MAST)
-library(Seurat)
 
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))
-results_dir <- initDir(file.path("results", Sys.Date(), "seurat-mast-markers"))
+rds_dir <- initDir(file.path(rds_dir, "seurat-mast-markers"))
 
 ## Enable parallelization, but not inside RStudio.
 if (isTRUE(future::supportsMulticore())) {
@@ -26,7 +25,7 @@ seurat_mast_marker_files <-
             ## Now seeing this warning regarding partial match:
             ## Warning: partial match of 'coef' to 'coefold'
             markers <- FindAllMarkers(object, test.use = "MAST")
-            outfile <- file.path(results_dir, basename(file))
+            outfile <- file.path(rds_dir, basename(file))
             saveRDS(markers, file = outfile)
             outfile
         },
