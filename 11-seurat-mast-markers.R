@@ -13,7 +13,7 @@ if (isTRUE(future::supportsMulticore())) {
     future::plan("multiprocess", workers = workers)
 }
 
-resolution <- import("resolution.txt")
+resolution <- import("resolution.txt", format = "lines")
 
 # Loop across the seurat objects to run our marker analysis
 seurat_mast_marker_files <-

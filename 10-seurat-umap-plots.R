@@ -1,25 +1,49 @@
 source("_setup.R")
 
+umap_results_dir <- initDir(file.path(results_dir, "umap-plots"))
+tsne_results_dir <- initDir(file.path(results_dir, "tsne-plots"))
+
+resolution <- import("resolution.txt", format = "lines")
+
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))
+## Strip out the absolute URL from the file list.
+parent_dir_pattern <-
+    seurat_clustering_files %>%
+    .[[1L]] %>%
+    str_extract(
+        string = .,
+        pattern = "^.+/rds/"
+    ) %>%
+    dirname() %>%
+    paste0("^", ., "/")
+seurat_clustering_files %<>%
+    gsub(
+        pattern = parent_dir_pattern,
+        replacement = "",
+        x = .
+    ) %>%
+    realpath()
+saveData(seurat_clustering_files)
 
-file <- seurat_clustering_files[[1]]
-object <- readRDS(file)
-
-resolution <- import("resolution.txt")
-
-## Be sure to match this in the marker script.
-Idents(object) <- resolution
-plotUMAP(object)
-plotTSNE(object)
-
-
-
-
-
-## > help("Idents", "Seurat")
-SetIdent
-
-seurat <- SetAllIdent(seurat, id = "res.0.4")
-
-plotTSNE(object)
-plotUMAP(object)
+invisible(lapply(
+    X = seurat_clustering_files,
+    FUN = function(file) {
+        object <- readRDS(file)
+        Idents(object) <- resolution
+        stopifnot(is.factor(Idents(object)))
+        title <- basenameSansExt(file)
+        labels <- list(title = title)
+        p <- plotUMAP(object, labels = labels)
+        outfile <- paste0(title, ".pdf")
+        ggsave(
+            filename = file.path(umap_results_dir, outfile),
+            plot = p
+        )
+        p <- plotTSNE(object, labels = labels)
+        ggsave(
+            filename = file.path(tsne_results_dir, outfile),
+            plot = p
+        )
+        file
+    }
+))
