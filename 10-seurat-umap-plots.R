@@ -32,6 +32,7 @@ invisible(lapply(
         Idents(object) <- resolution
         stopifnot(is.factor(Idents(object)))
         title <- basenameSansExt(file)
+        message(paste0("Plotting ", title, "."))
         labels <- list(title = title)
         p <- plotUMAP(object, labels = labels)
         outfile <- paste0(title, ".pdf")
