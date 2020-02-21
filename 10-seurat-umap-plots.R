@@ -4,8 +4,11 @@ loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))
 
 file <- seurat_clustering_files[[1]]
 object <- readRDS(file)
+
+resolution <- import("resolution.txt")
+
 ## Be sure to match this in the marker script.
-Idents(object) <- "RNA_snn_res.0.6"
+Idents(object) <- resolution
 plotUMAP(object)
 plotTSNE(object)
 

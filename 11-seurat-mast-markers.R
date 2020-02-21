@@ -13,6 +13,8 @@ if (isTRUE(future::supportsMulticore())) {
     future::plan("multiprocess", workers = workers)
 }
 
+resolution <- import("resolution.txt")
+
 # Loop across the seurat objects to run our marker analysis
 seurat_mast_marker_files <-
     invisible(vapply(
@@ -21,7 +23,7 @@ seurat_mast_marker_files <-
             object <- readRDS(file)
             ## Now using 0.6 resolution.
             ## Previously, we used 0.4 in the 2018 analysis.
-            Idents(object) <- "RNA_snn_res.0.6"
+            Idents(object) <- resolution
             ## Now seeing this warning regarding partial match:
             ## Warning: partial match of 'coef' to 'coefold'
             markers <- FindAllMarkers(object, test.use = "MAST")
