@@ -1,10 +1,12 @@
+## R 4.0.0
+
 library(knitr)            # 1.28
 library(rmarkdown)        # 2.1
 library(viridis)          # 0.5.1
 library(tidyverse)        # 1.3.0
-library(bcbioSingleCell)  # 0.4.7
-library(Chromium)         # 0.1.3
-library(pointillism)      # 0.4.8
+library(bcbioSingleCell)  # 0.4.10
+library(Chromium)         # 0.1.5
+library(pointillism)      # 0.4.9
 
 # Set seed for reproducibility.
 set.seed(1454944673L)
