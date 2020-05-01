@@ -1,13 +1,24 @@
 source("_setup.R")
 
 loadData(seurat_files, dir = file.path("rds", "2020-02-20"))
-
-## Need to change the path to work on macOS.
-seurat_files <- realpath(gsub(
-    "/mnt/data01/n/home/michael.steinbaugh/devkota/",
-    "",
-    seurat_files
-))
+## Strip out the absolute URL from the file list.
+parent_dir_pattern <-
+    seurat_files %>%
+    .[[1L]] %>%
+    str_extract(
+        string = .,
+        pattern = "^.+/rds/"
+    ) %>%
+    dirname() %>%
+    paste0("^", ., "/")
+seurat_files %<>%
+    gsub(
+        pattern = parent_dir_pattern,
+        replacement = "",
+        x = .
+    ) %>%
+    realpath()
+saveData(seurat_files)
 
 rds_dir <- initDir(file.path("rds", Sys.Date(), "seurat-clustering"))
 
