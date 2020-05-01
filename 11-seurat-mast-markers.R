@@ -1,11 +1,18 @@
 source("_setup.R")
 
 # Using MAST method to find the markers, rather than Wilcoxon.
-library(MAST)
-library(Seurat)
+library(MAST)  # 1.14.0
+
+res <- "0.4"
+res_ident <- paste0("RNA_snn_res.", res)
 
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))
-results_dir <- initDir(file.path("results", Sys.Date(), "seurat-mast-markers"))
+results_dir <- initDir(file.path(
+    "results",
+    Sys.Date(),
+    "seurat-mast-markers",
+    res_ident
+))
 
 ## Enable parallelization, but not inside RStudio.
 if (isTRUE(future::supportsMulticore())) {
@@ -20,11 +27,9 @@ seurat_mast_marker_files <-
         X = seurat_clustering_files,
         FUN = function(file) {
             object <- readRDS(file)
-            ## Now using 0.6 resolution.
+            validObject(object)
             ## Previously, we used 0.4 in the 2018 analysis.
-            Idents(object) <- "RNA_snn_res.0.6"
-            ## Now seeing this warning regarding partial match:
-            ## Warning: partial match of 'coef' to 'coefold'
+            Idents(object) <- res_ident
             markers <- FindAllMarkers(object, test.use = "MAST")
             outfile <- file.path(results_dir, basename(file))
             saveRDS(markers, file = outfile)

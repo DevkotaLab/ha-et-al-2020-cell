@@ -1,8 +1,15 @@
 source("_setup.R")
-library(Seurat)
+
+res <- "0.4"
+res_ident <- paste0("RNA_snn_res.", res)
 
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))
-results_dir <- initDir(file.path("results", Sys.Date(), "seurat-wilcoxon-markers"))
+results_dir <- initDir(file.path(
+    "results",
+    Sys.Date(),
+    "seurat-wilcoxon-markers",
+    res_ident
+))
 
 ## Enable parallelization, but not inside RStudio.
 if (isTRUE(future::supportsMulticore())) {
@@ -17,9 +24,8 @@ seurat_wilcoxon_marker_files <-
         X = seurat_clustering_files,
         FUN = function(file) {
             object <- readRDS(file)
-            ## Now using 0.6 resolution.
             ## Previously, we used 0.4 in the 2018 analysis.
-            Idents(object) <- "RNA_snn_res.0.6"
+            Idents(object) <- res_ident
             markers <- FindAllMarkers(object, test.use = "wilcox")
             outfile <- file.path(results_dir, basename(file))
             saveRDS(markers, file = outfile)

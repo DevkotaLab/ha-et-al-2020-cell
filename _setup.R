@@ -6,6 +6,7 @@ library(viridis)          # 0.5.1
 library(tidyverse)        # 1.3.0
 library(bcbioSingleCell)  # 0.4.10
 library(Chromium)         # 0.1.5
+library(Seurat)           # 3.1.5
 library(pointillism)      # 0.4.9
 
 # Set seed for reproducibility.
