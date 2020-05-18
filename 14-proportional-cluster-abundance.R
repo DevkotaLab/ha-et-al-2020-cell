@@ -1,6 +1,12 @@
 source("_setup.R")
 
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))
+## Remove the combined "condition" Seurat objects from analysis.
+keep <- !grepl(
+    pattern = "_condition_",
+    x = basename(seurat_clustering_files)
+)
+seurat_clustering_files <- seurat_clustering_files[keep]
 
 resolution <- import("resolution.txt", format = "lines")
 ## [1] "RNA_snn_res.0.4"
@@ -54,6 +60,7 @@ gg <- ggplot(
 ## Stacked bar plot.
 p_stacked <- gg +
     geom_bar(
+        color = "black",
         position = "stack",
         stat = "identity"
     ) +
@@ -72,6 +79,6 @@ p_pct_stacked <- gg +
     ) +
     labs(
         x = NULL,
-        y = "% cell count"
+        y = "relative cell count"
     )
 saveData(p_pct_stacked)
