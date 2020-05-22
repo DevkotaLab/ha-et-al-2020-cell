@@ -64,3 +64,4 @@ gsea <- FGSEAList(
     object = ranked_list_combined,
     gmtFiles = gmt_files
 )
+saveData(gsea)
