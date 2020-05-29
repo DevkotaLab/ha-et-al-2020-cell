@@ -55,15 +55,25 @@ colnames(surecell@meta.data)
 ## Note that these plots are too large to save to disk.
 ## Just regenerate, if necessary.
 
+width <- 8L
+height <- 8L
+point_size <- 0.5  # 0.75
+label_size <- 5L  # 6L
+
 ## Cell Ranger t-SNE.
 ggsave(
     filename = file.path(
         results_dir,
         "cellranger_tsne_ident.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotTSNE(
         object = cellranger,
-        interestingGroups = NULL
+        interestingGroups = NULL,
+        color = NULL,
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -71,9 +81,13 @@ ggsave(
         results_dir,
         "cellranger_tsne_condition.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotTSNE(
         object = cellranger,
-        interestingGroups = "condition"
+        interestingGroups = "condition",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -81,9 +95,13 @@ ggsave(
         results_dir,
         "cellranger_tsne_sample_name.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotTSNE(
         object = cellranger,
-        interestingGroups = "sampleName"
+        interestingGroups = "sampleName",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 
@@ -93,9 +111,14 @@ ggsave(
         results_dir,
         "cellranger_umap_ident.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotUMAP(
         object = cellranger,
-        interestingGroups = NULL
+        interestingGroups = NULL,
+        color = NULL,
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -103,9 +126,13 @@ ggsave(
         results_dir,
         "cellranger_umap_condition.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotUMAP(
         object = cellranger,
-        interestingGroups = "condition"
+        interestingGroups = "condition",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -113,9 +140,13 @@ ggsave(
         results_dir,
         "cellranger_umap_sample_name.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotUMAP(
         object = cellranger,
-        interestingGroups = "sampleName"
+        interestingGroups = "sampleName",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 
@@ -125,9 +156,13 @@ ggsave(
         results_dir,
         "surecell_tsne_ident.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotTSNE(
         object = surecell,
-        interestingGroups = NULL
+        interestingGroups = NULL,
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -135,9 +170,13 @@ ggsave(
         results_dir,
         "surecell_tsne_sample_name.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotTSNE(
         object = surecell,
-        interestingGroups = "sampleName"
+        interestingGroups = "sampleName",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -145,9 +184,13 @@ ggsave(
         results_dir,
         "surecell_tsne_tissue_status.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotTSNE(
         object = surecell,
-        interestingGroups = "tissueStatus"
+        interestingGroups = "tissueStatus",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 
@@ -157,9 +200,13 @@ ggsave(
         results_dir,
         "surecell_umap_ident.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotUMAP(
         object = surecell,
-        interestingGroups = NULL
+        interestingGroups = NULL,
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -167,9 +214,13 @@ ggsave(
         results_dir,
         "surecell_umap_sample_name.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotUMAP(
         object = surecell,
-        interestingGroups = "sampleName"
+        interestingGroups = "sampleName",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
 ggsave(
@@ -177,8 +228,12 @@ ggsave(
         results_dir,
         "surecell_umap_tissue_status.pdf"
     ),
+    width = width,
+    height = height,
     plot = plotUMAP(
         object = surecell,
-        interestingGroups = "tissueStatus"
+        interestingGroups = "tissueStatus",
+        pointSize = point_size,
+        labelSize = label_size
     ) + theme(aspect.ratio = 1L)
 )
