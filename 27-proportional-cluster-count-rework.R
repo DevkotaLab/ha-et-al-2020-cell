@@ -195,14 +195,14 @@ ggsave(
 )
 assignAndSaveData(name = name, object = plot)
 
-## Per condition ----
+## Per tissue status ----
 data <- metrics(object) %>%
-    group_by(condition, ident) %>%
+    group_by(tissueStatus, ident) %>%
     summarise (n = n())
 plot <- ggplot(
     data = data,
     mapping = aes(
-        x = condition,
+        x = tissueStatus,
         y = n,
         fill = ident
     )
@@ -213,11 +213,11 @@ plot <- ggplot(
         stat = "identity"
     ) +
     labs(
-        title = "per condition",
+        title = "per tissue status",
         x = "condition",
         y = "relative cell count"
     )
-name <- "surecell_condition_plot_pct_stacked"
+name <- "surecell_tissue_status_plot_pct_stacked"
 ggsave(
     filename = file.path(results_dir, paste0(name, ".pdf")),
     plot = plot,
