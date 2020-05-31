@@ -2,79 +2,131 @@
 
 source("_setup.R")
 
-seurat_files <- c(
-    cellranger = file.path(
-        "rds",
-        "2020-05-18",
-        "cellranger_all_samples_seurat.rds"
-    ),
-    surecell = file.path(
-        "rds",
-        "2020-02-20",
-        "seurat-clustering",
-        "surecell_condition_cd_seurat.rds"
-    )
-)
-saveData(seurat_files)
-
 ## Set the resolution.
 resolution <- import("resolution.txt", format = "lines")
-saveData(resolution)
-
-## Loop across the Seurat objects and get the cell count per cluster.
-## Create a stacked bar plot for each sample showing these distributions.
-seurat_metadata_list <- lapply(
-    X = seurat_files,
-    FUN = function(file) {
-        object <- readRDS(file)
-        Idents(object) <- resolution
-        list(
-            metrics = metrics(object),
-            idents = Idents(object),
-            metadata = object@meta.data
-        )
-    }
-)
-names(seurat_metadata_list) <- basenameSansExt(seurat_files)
-saveData(seurat_metadata_list)
 
 
 
-## Cell Ranger samples ====
+## Cell Ranger ====
+object <- readRDS(file.path(
+    "rds",
+    "2020-05-18",
+    "cellranger_all_samples_seurat.rds"
+))
+Idents(object) <- resolution
 
-## Run this for all samples, per sample, and per condition.
-metrics <- seurat_metadata_list[["cellranger_all_samples_seurat"]][["metrics"]]
+## Set the condition inside combined Cell Ranger dataset.
+## - A04: Crohn's patient
+## - A16: Crohn's patient
+## - D1: Non-IBD control
+## - H1: Non-IBD control
+object@meta.data$condition <-
+    as.factor(ifelse(
+        test = object@meta.data$sampleID %in% c("A04", "A16"),
+        yes = "Crohn's patient",
+        no = "Non-IBD control"
+    ))
 
 ## All samples ----
-
-## Reverse the ident table so we can stack high to low from y-axis origin.
-
-
-data <- tibble(
-    sampleID = "cellranger",
-    clusterID = factor(
-        x = names(table(metrics[["ident"]])),
-        levels = names(table(metrics[["ident"]]))
-    ),
-    n = as.integer(table(metrics[["ident"]]))
-)
-gg <- ggplot(
+data <- metrics(object) %>%
+    group_by(ident) %>%
+    summarise (n = n())
+## Percent stacked bar plot.
+plot <- ggplot(
     data = data,
     mapping = aes(
-        x = sampleID,
+        x = "cellranger",
         y = n,
-        fill = clusterID
+        fill = ident
     )
-)
-## Percent stacked bar plot.
-p_pct_stacked <- gg +
+) +
     geom_bar(
         color = "black",
         position = "fill",  # Use "stack" for absolute
         stat = "identity"
     ) +
     labs(
+        title = "all samples",
         x = NULL,
         y = "relative cell count"
     )
-saveData(p_pct_stacked)
+name <- "cellranger_ident_p_pct_stacked"
+ggsave(
+    filename = file.path(results_dir, paste0(name, ".pdf")),
+    plot = plot,
+    width = 2,
+    height = 7
+)
+assignAndSaveData(name = name, object = plot)
+
+## Per sample ----
+data <- metrics(object) %>%
+    group_by(sampleName, ident) %>%
+    summarise (n = n())
+plot <- ggplot(
+    data = data,
+    mapping = aes(
+        x = sampleName,
+        y = n,
+        fill = ident
+    )
+) +
+    geom_bar(
+        color = "black",
+        position = "fill",  # Use "stack" for absolute
+        stat = "identity"
+    ) +
+    labs(
+        title = "per sample",
+        x = "sample",
+        y = "relative cell count"
+    )
+name <- "cellranger_sample_name_p_pct_stacked"
+ggsave(
+    filename = file.path(results_dir, paste0(name, ".pdf")),
+    plot = plot,
+    width = 5,
+    height = 7
+)
+assignAndSaveData(name = name, object = plot)
+
+## Per condition ----
+data <- metrics(object) %>%
+    group_by(condition, ident) %>%
+    summarise (n = n())
+plot <- ggplot(
+    data = data,
+    mapping = aes(
+        x = condition,
+        y = n,
+        fill = ident
+    )
+) +
+    geom_bar(
+        color = "black",
+        position = "fill",  # Use "stack" for absolute
+        stat = "identity"
+    ) +
+    labs(
+        title = "per condition",
+        x = "condition",
+        y = "relative cell count"
+    )
+name <- "cellranger_condition_p_pct_stacked"
+ggsave(
+    filename = file.path(results_dir, paste0(name, ".pdf")),
+    plot = plot,
+    width = 5,
+    height = 7
+)
+assignAndSaveData(name = name, object = plot)
+
+
+
+## SureCell ====
+object <- readRDS(file.path(
+    "rds",
+    "2020-02-20",
+    "seurat-clustering",
+    "surecell_condition_cd_seurat.rds"
+))
