@@ -1,12 +1,12 @@
-library(knitr)            # 1.28
-library(rmarkdown)        # 2.1
+library(knitr)            # 1.29
+library(rmarkdown)        # 2.3
 library(viridis)          # 0.5.1
 library(tidyverse)        # 1.3.0
-library(basejump)         # 0.12.7
+library(basejump)         # 0.12.8
 library(bcbioSingleCell)  # 0.4.12
 library(Chromium)         # 0.1.5
 library(Seurat)           # 3.1.5
-library(pointillism)      # 0.4.9
+library(pointillism)      # 0.4.10
 
 # Set seed for reproducibility.
 set.seed(1454944673L)
