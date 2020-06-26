@@ -18,16 +18,21 @@ Idents(cellranger) <- resolution
 Idents(surecell) <- resolution
 
 ## Set the condition inside combined Cell Ranger dataset.
+##
 ## - A04: Crohn's patient
 ## - A16: Crohn's patient
 ## - D1: Non-IBD control
 ## - H1: Non-IBD control
+##
+## Match the factor levels, so the plot colors are consistent with surecell.
 cellranger@meta.data$condition <-
-    as.factor(ifelse(
+    ifelse(
         test = cellranger@meta.data$sampleID %in% c("A04", "A16"),
         yes = "Crohn's patient",
         no = "Non-IBD control"
-    ))
+    ) %>%
+    as.factor() %>%
+    relevel(ref = "Non-IBD control")
 
 colnames(cellranger@meta.data)
 ##  [1] "orig.ident"            "nCount_RNA"            "nFeature_RNA"
