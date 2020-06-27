@@ -1,3 +1,6 @@
+## Calculate GSEA markers per cluster with edgeR for SureCell CD samples.
+## Updated 2020-05-20.
+
 source("_setup.R")
 
 surecell <- readRDS(file.path(

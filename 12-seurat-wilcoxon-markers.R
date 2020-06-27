@@ -1,3 +1,6 @@
+## Use Wilcoxon method to find the markers.
+## Updated 2020-04-30.
+
 source("_setup.R")
 
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))

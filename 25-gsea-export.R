@@ -1,3 +1,6 @@
+## Export GSEA tables to disk in CSV format.
+## Updated 2020-05-22.
+
 source("_setup.R")
 library(acidgsea)  # 0.3.0
 

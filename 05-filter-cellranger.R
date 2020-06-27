@@ -1,3 +1,6 @@
+## Apply filtering to Cell Ranger dataset.
+## Updated 2020-02-19.
+
 source("_setup.R")
 
 loadData(cellranger, dir = file.path("rds", "2020-02-02"))

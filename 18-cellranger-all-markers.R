@@ -1,3 +1,6 @@
+## Calculate markers per cluster for Cell Ranger dataset with all samples.
+## Updated 2020-05-20.
+
 source("_setup.R")
 library(MAST)  # 1.14.0
 

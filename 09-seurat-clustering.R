@@ -1,3 +1,6 @@
+## Run Seurat clustering.
+## Updated 2020-06-27.
+
 source("_setup.R")
 
 loadData(seurat_files, dir = file.path("rds", "2020-02-20"))
@@ -34,7 +37,7 @@ seurat_clustering_files <-
             name <- basenameSansExt(file)
             message(paste0("Running ", name, "."))
             object <- readRDS(file)
-            object <- runSeurat(object)
+            object <- runSeurat(object, umapMethod = "umap-learn")
             saveRDS(object, file = outfile)
             outfile
         },

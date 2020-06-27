@@ -1,9 +1,9 @@
-source("_setup.R")
-
 ## edgeR marker matrices.
 ## Updated 2020-05-22.
 
-## SureCell ====
+source("_setup.R")
+
+## SureCell ====================================================================
 surecell_edger <-
     readRDS(file.path("rds", "2020-05-21", "surecell_edger_markers.rds"))
 ## Loop across the DGELRT objects.
@@ -40,22 +40,22 @@ rm(
     surecell_edger_lfc_matrix
 )
 
-## Cell Ranger ====
+## Cell Ranger =================================================================
 files <- sort(list.files(
     path = file.path("rds", "2020-05-21"),
     pattern = "^cellranger_edger_cluster_",
     full.names = TRUE
 ))
-## Loop across the DGEList objects one at a time and extract LFC values.
-## Here we are loading each object individually because it takes too much
-## memory to load all objects up into a single list.
+## Loop across the DGEList objects one at a time and extract LFC values. Here we
+## are loading each object individually because it takes too much memory to load
+## all objects up into a single list.
 cellranger_edger_lfc_vec_list <- lapply(
     X = files,
     FUN = function(file) {
         object <- readRDS(file)
-        ## Note that input object is list here, not DGELRT.
-        ## Need to go down an extra level to get the DGELRT object.
-        ## This differs from surecell object approach above.
+        ## Note that input object is list here, not DGELRT. Need to go down an
+        ## extra level to get the DGELRT object. This differs from surecell
+        ## object approach above.
         dgelrt <- object[[1L]]
         df <- dgelrt[["table"]]
         lfc <- df[["logFC"]]
@@ -81,7 +81,3 @@ cellranger_edger_lfc_matrix <- matrix(
     )
 )
 saveData(cellranger_edger_lfc_matrix)
-rm(
-    cellranger_edger_lfc_vec_list,
-    cellranger_edger_lfc_matrix
-)

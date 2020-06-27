@@ -1,3 +1,6 @@
+## Generate Wilcoxon markers per cluster for Cell Ranger and SureCell datasets.
+## Updated 2020-05-20.
+
 source("_setup.R")
 
 cellranger_all_wilcoxon_markers <- readRDS(file.path(

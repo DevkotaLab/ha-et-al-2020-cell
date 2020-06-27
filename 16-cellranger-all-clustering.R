@@ -1,6 +1,7 @@
-source("_setup.R")
-
 ## Re-run Seurat clustering on all Cell Ranger samples combined.
+## Updated 2020-06-27.
+
+source("_setup.R")
 
 ## Use our all samples filtered dataset
 loadData(cellranger_filtered, dir = file.path("rds", "2020-02-19"))
@@ -19,7 +20,7 @@ sce <- convertGenesToSymbols(sce)
 ## Refer to Chromium and pointillism packages for details.
 seurat <- as(sce, "Seurat")
 ## Using wrapper function defined in pointillism.
-seurat <- runSeurat(seurat)
+seurat <- runSeurat(seurat, umapMethod = "umap-learn")
 assignAndSaveData(
     name = "cellranger_all_samples_seurat",
     object = seurat

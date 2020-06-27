@@ -1,3 +1,6 @@
+## Generate ranked list of expression per gene symbol for GSEA.
+## Updated 2020-05-22.
+
 source("_setup.R")
 library(acidgsea)  # 0.3.0
 
@@ -12,9 +15,7 @@ loadData(
     dir = file.path("rds", "2020-05-22")
 )
 
-
-
-## Cell Ranger ====
+## Cell Ranger =================================================================
 mat <- cellranger_edger_lfc_matrix
 ## Note that we're improving the sorting of the columns here.
 colnames(mat) <- autopadZeros(paste0("cluster_", colnames(mat)))
@@ -44,9 +45,7 @@ assignAndSaveData(
     object = rl
 )
 
-
-
-## SureCell ====
+## SureCell ====================================================================
 mat <- surecell_edger_lfc_matrix
 ## Note that we're improving the sorting of the columns here.
 colnames(mat) <- autopadZeros(paste0("cluster_", colnames(mat)))

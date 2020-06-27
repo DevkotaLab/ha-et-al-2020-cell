@@ -1,8 +1,11 @@
-source("_setup.R")
-
 ## Extract per-sample and per-condition data subsets.
-## CD: Crohn's Disease
-## UC: Ulcerative Colitis
+## Updated 2020-02-19.
+##
+## Sample groups:
+## - CD: Crohn's Disease
+## - UC: Ulcerative Colitis
+
+source("_setup.R")
 
 ## Use our all samples filtered dataset
 loadData(surecell_filtered, dir = file.path("rds", "2020-02-19"))

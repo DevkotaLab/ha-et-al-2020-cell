@@ -1,6 +1,7 @@
-source("_setup.R")
+## Extract per-sample Cell Ranger data subsets.
+## Updated 2020-02-19.
 
-## Extract per-sample data subsets.
+source("_setup.R")
 
 ## Use our all samples filtered dataset
 loadData(cellranger_filtered, dir = file.path("rds", "2020-02-19"))

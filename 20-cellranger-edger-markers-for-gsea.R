@@ -1,3 +1,6 @@
+## Calculate GSEA markers per cluster with edgeR for Cell Ranger all samples.
+## Updated 2020-05-20.
+
 source("_setup.R")
 
 cellranger <- readRDS(file.path(

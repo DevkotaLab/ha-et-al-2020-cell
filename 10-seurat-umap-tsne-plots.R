@@ -1,3 +1,6 @@
+## Generate UMAP and tSNE plots.
+## Updated 2020-04-30.
+
 source("_setup.R")
 
 umap_results_dir <- initDir(file.path(results_dir, "umap-plots"))

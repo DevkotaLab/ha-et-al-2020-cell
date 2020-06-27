@@ -1,7 +1,7 @@
-source("_setup.R")
-
 ## Coerce SingleCellExperiment objects to Seurat, to run clustering.
 ## Updated 2020-02-20.
+
+source("_setup.R")
 
 ## Objects to load and cluster.
 loadData(

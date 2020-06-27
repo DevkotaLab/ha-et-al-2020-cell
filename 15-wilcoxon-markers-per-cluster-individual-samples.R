@@ -1,3 +1,6 @@
+## Generate Wilcoxon markers per cluster for individual samples.
+## Updated 2020-05-20.
+
 source("_setup.R")
 
 ## Load up the Wilcoxon marker data frames.
@@ -56,8 +59,6 @@ cellranger_granges <- rowRanges(cellranger)
 surecell_granges <- rowRanges(surecell)
 saveData(cellranger_granges, surecell_granges)
 
-
-
 ## Cell Ranger markers =========================================================
 files <- cellranger_files
 ## Loop across each cluster per sample and run GSEA.
@@ -86,8 +87,6 @@ assignAndSaveData(
     object = markers
 )
 
-
-
 ## SureCell markers ============================================================
 files <- surecell_files
 ## Loop across each cluster per sample and run GSEA.
@@ -115,8 +114,6 @@ assignAndSaveData(
     name = "surecell_wilcoxon_seurat_markers_per_cluster_list",
     object = markers
 )
-
-
 
 ## Combine marker lists ========================================================
 ## Now we can combine the SeuratMarkersPerCluster lists.

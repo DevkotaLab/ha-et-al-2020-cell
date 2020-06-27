@@ -1,11 +1,12 @@
+## Export marker files to disk in CSV format.
+## Updated 2020-04-30.
+
 source("_setup.R")
 
 mast_results_dir <-
     initDir(file.path(results_dir, "seurat-mast-markers-csv"))
 wilcoxon_results_dir <-
     initDir(file.path(results_dir, "seurat-wilcoxon-markers-csv"))
-
-
 
 ## MAST markers ================================================================
 loadData(seurat_mast_marker_files, dir = file.path("rds", "2020-04-30"))
@@ -23,8 +24,6 @@ seurat_mast_marker_csv_files <-
         FUN.VALUE = character(1L)
     )
 saveData(seurat_mast_marker_csv_files)
-
-
 
 ## Wilcoxon markers ============================================================
 loadData(seurat_wilcoxon_marker_files, dir = file.path("rds", "2020-04-30"))

@@ -1,13 +1,12 @@
 ## Calculate the proportions per cluster for cellranger and surecell datasets.
+## Updated 2020-06-27.
 
 source("_setup.R")
 
 ## Set the resolution.
 resolution <- import("resolution.txt", format = "lines")
 
-
-
-## Cell Ranger ====
+## Cell Ranger =================================================================
 object <- readRDS(file.path(
     "rds",
     "2020-05-18",
@@ -121,9 +120,7 @@ ggsave(
 )
 assignAndSaveData(name = name, object = plot)
 
-
-
-## SureCell ====
+## SureCell ====================================================================
 object <- readRDS(file.path(
     "rds",
     "2020-02-20",

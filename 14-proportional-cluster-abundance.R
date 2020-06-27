@@ -1,3 +1,6 @@
+## Calculate proportional cluster abundance.
+## Updated 2020-05-18.
+
 source("_setup.R")
 
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))

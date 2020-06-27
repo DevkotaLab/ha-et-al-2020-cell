@@ -1,3 +1,6 @@
+## Apply filtering to SureCell dataset.
+## Updated 2020-02-19.
+
 source("_setup.R")
 
 loadData(surecell, dir = file.path("rds", "2020-02-02"))

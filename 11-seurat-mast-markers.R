@@ -1,6 +1,7 @@
-source("_setup.R")
+## Use MAST method to find the markers (rather than Wilcoxon default).
+## Updated 2020-04-30.
 
-# Using MAST method to find the markers, rather than Wilcoxon.
+source("_setup.R")
 library(MAST)
 
 loadData(seurat_clustering_files, dir = file.path("rds", "2020-02-20"))

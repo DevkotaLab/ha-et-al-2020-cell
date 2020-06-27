@@ -1,3 +1,6 @@
+## Generate UMAP and tSNE plots for Cell Ranger dataset with all samples.
+## Updated 2020-05-20.
+
 source("_setup.R")
 
 loadDataAsName(

@@ -1,4 +1,4 @@
-## UMAP and tSNE plots.
+## Generate UMAP and tSNE plots.
 ## Updated 2020-06-26.
 
 source("_setup.R")
