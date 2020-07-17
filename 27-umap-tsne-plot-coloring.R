@@ -1,35 +1,28 @@
 ## Generate UMAP and tSNE plots.
 ## Updated 2020-06-26.
-
-
-
-
-## Improve consistency of colors in figures, per Suzanne's request.
-## Updated 2020-06-26.
 ##
-## Control: purple
-## Crohn's orange
+## Improve consistency of colors in figures, per Suzanne's request:
+## - Control samples: purple
+## - Crohn's samples: orange
 ##
 ## Need to set the factor levels in UMAP/tSNE plots for consistency.
-##
-## Relevant dates:
-## - 2020-05-28: UMAP and t-SNE plots
-## - 2020-05-31: proportional stacked bar plots
-
-
-
-
-
-
-
 
 source("_setup.R")
 
-cellranger <- readRDS(file.path(
+cellranger_all <- readRDS(file.path(
     "rds",
     "2020-05-18",
     "cellranger_all_samples_seurat.rds"
 ))
+## This dataset includes both Crohn's disease (CD) and ulcerative colitis (UC)
+## samples. We're subsetting only the CD samples below.
+surecell_all <- readRDS(file.path(
+    "rds",
+    "2020-06-26",
+    "surecell_all_samples_seurat.rds"
+))
+## This is a subset containing only the Crohn (and relevant control samples).
+## The ulcerative colitis (UC) samples aren't included here.
 surecell_cd <- readRDS(file.path(
     "rds",
     "2020-02-20",
