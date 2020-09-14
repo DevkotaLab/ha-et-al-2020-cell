@@ -1,0 +1,7 @@
+# Translocation of Viable Gut Microbiota to Mesenteric Adipose Drives Formation of Creeping Fat in Humans
+
+Ha CW, Martin A, Sepich-Poore GD, Shi B, Wang Y, Gouin K, Humphrey G, Sanders K, Ratnayake Y, Chan KS, Hendrick G, Rafael Caldera J, Arias C, Moskowitz JE, Ho Sui SJ, Yang S, Underhill D, Brady MJ, Knott S, Kaihara K, Steinbaugh MJ, Li H, McGovern DP, Knight R, Fleshner P, Devkota S
+
+A mysterious feature of Crohn’s disease (CD) is the extra-intestinal manifestation of "creeping fat" (CrF), defined as expansion of mesenteric adipose tissue around the inflamed and fibrotic intestine. In the current study, we explored whether microbial translocation in human intestinal inflammation serves as a central cue for CrF development. We discovered a subset of mucosal-associated gut bacteria that consistently translocated and remained viable in CrF in CD ileal surgical resections. We identified Clostridium innocuum as a signature of this consortium with strain variation between the mucosa and adipose. Single-cell RNA sequencing characterized CrF as both pro-fibrotic and pro-adipogenic with a rich milieu of activated immune cells responding to microbial stimuli, which we confirm in gnotobiotic mice colonized with C. innocuum. Ex vivo validation of expression patterns suggests C. innocuum stimulates tissue remodeling via M2 macrophages leading to an adipose tissue barrier that prevents further dissemination of bacteria.
+
+GEO: [GSE156776](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE156776)
