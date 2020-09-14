@@ -20,8 +20,6 @@ min_novelty <- 0.85
 max_mito_ratio <- 0.1
 min_cells_per_feature <- 10
 
-
-
 ## Pre-filter ==================================================================
 plotCellCounts(surecell)
 
@@ -52,8 +50,6 @@ plotCountsPerCell(
     min = min_counts,
     max = max_counts
 )
-
-
 
 ## Test filtering ==============================================================
 surecell <- filterCells(
@@ -108,8 +104,6 @@ plotMitoRatio(
     max = max_mito_ratio
 )
 
-
-
 ## Filter ======================================================================
 surecell <- surecell_bak
 dim(surecell)
@@ -127,8 +121,6 @@ surecell_filtered <- filterCells(
 dim(surecell_filtered)
 ## [1] 18132  7554
 saveData(surecell_filtered)
-
-
 
 ## Post-filter =================================================================
 ## These are the same number of cells as the original 2018 analysis.

@@ -22,8 +22,6 @@ min_novelty <- 0.80
 max_mito_ratio <- 0.15
 min_cells_per_feature <- 10
 
-
-
 ## Pre-filter ==================================================================
 plotCellCounts(cellranger)
 
@@ -33,8 +31,6 @@ plotCountsPerCell(
     min = min_counts,
     max = max_counts
 )
-
-
 
 ## Test filtering ==============================================================
 cellranger <- filterCells(
@@ -89,9 +85,6 @@ plotMitoRatio(
     max = max_mito_ratio
 )
 
-
-
-
 ## Filter ======================================================================
 cellranger <- cellranger_bak
 dim(cellranger)
@@ -109,8 +102,6 @@ cellranger_filtered <- filterCells(
 dim(cellranger_filtered)
 ## [1] 19240  8183
 saveData(cellranger_filtered)
-
-
 
 ## Post-filter =================================================================
 ## These are the same number of cells as the original 2018 analysis.

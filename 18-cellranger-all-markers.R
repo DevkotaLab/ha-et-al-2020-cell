@@ -2,7 +2,6 @@
 ## Updated 2020-05-20.
 
 source("_setup.R")
-library(MAST)  # 1.14.0
 
 loadDataAsName(
     object = cellranger_all_samples_seurat,

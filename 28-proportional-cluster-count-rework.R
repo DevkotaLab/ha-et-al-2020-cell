@@ -1,10 +1,6 @@
 ## Calculate the proportions per cluster for cellranger and surecell datasets.
 ## Updated 2020-06-27.
 
-## FIXME Need to generate figures for SureCell all samples combined.
-## FIXME Also save these tables to disk.
-## FIXME Consider making the plots a little narrower?
-
 source("_setup.R")
 
 ## Set the resolution.
